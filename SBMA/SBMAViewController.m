@@ -143,6 +143,8 @@ NSMutableString *requestString;
         [self presentNextViewController];
         return;
     }
+    [self showAlert:@"账号或密码错误！" andmsg:nil];
+/*
     UIAlertView* alertMessage = [[UIAlertView alloc]
                                  initWithTitle:@"登录失败!!!"
                                  message:@"账号或密码错误！"
@@ -150,9 +152,22 @@ NSMutableString *requestString;
                                  cancelButtonTitle:@"确认"
                                  otherButtonTitles:nil];
     [alertMessage show];
+*/
     [self startToMove];
     //    _btnLogin.enabled = YES;
     return;
+}
+
+- (void) dimissAlert:(UIAlertView *)alert {
+    if(alert){
+        [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex] animated:YES];
+    }
+}
+
+- (void)showAlert:(NSString *)title andmsg:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil  cancelButtonTitle:nil otherButtonTitles:nil];
+    [alert show];
+    [self performSelector:@selector(dimissAlert:) withObject:alert afterDelay:2.0];
 }
 
 - (void)presentNextViewController{
@@ -192,6 +207,8 @@ NSMutableString *requestString;
     
     if ([username length] == 0 || [password length] == 0)
     {
+        [self showAlert:@"帐号或密码为空!!!" andmsg:nil];
+/*
         UIAlertView* alertMessage = [[UIAlertView alloc]
                                      initWithTitle:@"登录失败!!!"
                                      message:@"帐号或密码为空!!!"
@@ -199,6 +216,7 @@ NSMutableString *requestString;
                                      cancelButtonTitle:@"确认"
                                      otherButtonTitles:nil];
         [alertMessage show];
+*/
         return;
     }
  //   _btnLogin.enabled = NO;
